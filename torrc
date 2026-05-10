@@ -1,0 +1,11 @@
+# Tor configuration for Railway deployment
+SocksPort 0.0.0.0:9050
+SocksPolicy accept 127.0.0.1
+
+# IP rotation every 10 seconds
+MaxCircuitDirtiness 10
+NewCircuitPeriod 10
+UseEntryGuards 0
+
+# Logging
+Log notice stdout
