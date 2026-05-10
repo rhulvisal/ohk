@@ -2,14 +2,14 @@
 SocksPort 0.0.0.0:9050
 SocksPolicy accept 127.0.0.1
 
-# Control port for programmatic IP rotation
-ControlPort 0.0.0.0:9051
-CookieAuthentication 0
-HashedControlPassword 16:E600000000000000000000000000000000000000000000000000000000000000
+# Control port - localhost only (safe inside single container)
+ControlPort 127.0.0.1:9051
+CookieAuthentication 1
+CookieAuthFile /var/lib/tor/control_auth_cookie
 
-# Aggressive IP rotation
-MaxCircuitDirtiness 1
-NewCircuitPeriod 1
+# IP rotation - 10 seconds is Tor's minimum
+MaxCircuitDirtiness 10
+NewCircuitPeriod 10
 UseEntryGuards 0
 CircuitBuildTimeout 10
 LearnCircuitBuildTimeout 0
