@@ -1,9 +1,10 @@
 FROM python:3.11-slim
 
-# Install Tor and system deps
+# Install Tor, netcat, curl, and build deps
 RUN apt-get update && apt-get install -y \
     tor \
     curl \
+    netcat-openbsd \
     gcc \
     && rm -rf /var/lib/apt/lists/*
 
@@ -23,5 +24,5 @@ RUN chmod +x start.sh
 # Expose FastAPI port
 EXPOSE 8000
 
-# Start both Tor and FastAPI
+# Start both Tor, rotator, and FastAPI
 CMD ["./start.sh"]
