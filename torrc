@@ -2,10 +2,17 @@
 SocksPort 0.0.0.0:9050
 SocksPolicy accept 127.0.0.1
 
-# IP rotation every 10 seconds
-MaxCircuitDirtiness 10
-NewCircuitPeriod 10
+# Control port for programmatic IP rotation
+ControlPort 0.0.0.0:9051
+CookieAuthentication 0
+HashedControlPassword 16:E600000000000000000000000000000000000000000000000000000000000000
+
+# Aggressive IP rotation
+MaxCircuitDirtiness 1
+NewCircuitPeriod 1
 UseEntryGuards 0
+CircuitBuildTimeout 10
+LearnCircuitBuildTimeout 0
 
 # Logging
 Log notice stdout
