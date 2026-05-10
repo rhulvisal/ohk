@@ -3,8 +3,8 @@ import requests
 from stem import Signal
 from stem.control import Controller
 
-CONTROL_PASSWORD = "mypassword"
 PROXY = {"http": "socks5h://127.0.0.1:9050", "https": "socks5h://127.0.0.1:9050"}
+COOKIE_PATH = "/var/lib/tor/control_auth_cookie"
 
 def get_ip():
     """Get current IP through Tor"""
@@ -15,10 +15,11 @@ def get_ip():
         return f"error: {e}"
 
 def rotate_ip():
-    """Force Tor to build new circuit"""
+    """Force Tor to build new circuit using cookie auth"""
     try:
         with Controller.from_port(port=9051) as controller:
-            controller.authenticate(password=CONTROL_PASSWORD)
+            # Use cookie file for authentication (no password needed)
+            controller.authenticate()
             controller.signal(Signal.NEWNYM)
             return True
     except Exception as e:
